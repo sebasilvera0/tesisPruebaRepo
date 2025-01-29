@@ -1,0 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package com.inavi.backend.user.service;
+
+/**
+ *
+ * @author sebas
+ */
+
+import com.inavi.backend.user.model.User;
+import java.util.List;
+
+public interface UserService {
+    
+    User registerUser(User user);
+    
+    User getUserById(Integer userId);
+
+    User updateUser(User user);
+}
