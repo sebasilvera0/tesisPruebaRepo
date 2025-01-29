@@ -39,12 +39,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
     
-    public boolean login(String email, String rawPassword) {
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new NotFound("User", email));
+    public User login(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new NotFound("User", email);
+        }
+        
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            throw new NotFound("User", email); 
+        }
 
-    // Comparar la contraseña ingresada con la almacenada (hasheada)
-        return passwordEncoder.matches(rawPassword, user.getPassword());
+        return user;
     }
 
     

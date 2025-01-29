@@ -17,6 +17,8 @@ public interface UserService {
     User registerUser(User user);
     
     User getUserById(Integer userId);
+    
+    User login(String email, String rawPassword);
 
     User updateUser(User user);
 }
