@@ -2,6 +2,7 @@ com\inavi\backend\user\repository\UserRepository.class
 com\inavi\backend\user\service\RoleServiceImpl.class
 com\inavi\backend\user\repository\PermissionRepository.class
 com\inavi\backend\user\repository\RoleRepository.class
+com\inavi\backend\user\configuration\SecurityConfig.class
 com\inavi\backend\user\exception\UserAlreadyExist.class
 com\inavi\backend\user\model\Permission.class
 com\inavi\backend\user\model\ProductiveUnit.class
