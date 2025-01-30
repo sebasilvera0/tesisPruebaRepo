@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface UserService {
     
-    User registerUser(User user);
+    User registerUser(DtoUser user);
     
     User getUserById(Integer userId);
     

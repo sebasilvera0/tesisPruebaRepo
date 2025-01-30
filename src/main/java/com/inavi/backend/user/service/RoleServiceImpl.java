@@ -8,10 +8,12 @@ import com.inavi.backend.user.exception.NotFound;
 import com.inavi.backend.user.model.Permission;
 import com.inavi.backend.user.model.Role;
 import com.inavi.backend.user.repository.RoleRepository;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -34,6 +36,10 @@ public class RoleServiceImpl implements RoleService {
     public Role getRoleById(Integer roleId) {
         return roleRepository.findById(roleId)
                 .orElseThrow(() -> new NotFound("Role", roleId));
+    }
+    
+    public Set<Role> getRolesByIds(Set<Integer> roleIds) {
+        return new HashSet<>(roleRepository.findAllById(roleIds));
     }
 
     @Override
