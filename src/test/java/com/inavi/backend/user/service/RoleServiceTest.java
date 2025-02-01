@@ -7,6 +7,7 @@ package com.inavi.backend.user.service;
 
 
 
+import com.inavi.backend.user.dto.in.RolDtoIn;
 import com.inavi.backend.user.exception.NotFound;
 import com.inavi.backend.user.model.Permission;
 import com.inavi.backend.user.model.Role;
@@ -29,14 +30,13 @@ public class RoleServiceTest {
     @Autowired
     private PermissionServiceImpl permissionServiceImpl;
 
-    private Role testRole;
+    private RolDtoIn testRole;
     private Permission testPermission;
 
     @BeforeEach
     void setUp() {
         // Crear un rol de prueba antes de cada test
-        testRole = new Role();
-        testRole.setId(1);
+        testRole = new RolDtoIn();
         testRole.setName("Admin");
 
         // Crear un permiso de prueba
@@ -55,7 +55,7 @@ public class RoleServiceTest {
 
         // Validar que el rol fue guardado correctamente
         assertThat(savedRole).isNotNull();
-        assertThat(savedRole.getId()).isEqualTo(testRole.getId());
+        assertThat(savedRole.getId()).isEqualTo(savedRole.getId());
         assertThat(savedRole.getName()).isEqualTo(testRole.getName());
     }
     

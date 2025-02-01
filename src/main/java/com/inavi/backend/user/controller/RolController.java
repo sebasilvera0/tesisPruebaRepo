@@ -5,7 +5,8 @@
  */
 package com.inavi.backend.user.controller;
 
-import com.inavi.backend.user.model.User;
+import com.inavi.backend.user.dto.in.RolDtoIn;
+import com.inavi.backend.user.model.Role;
 import com.inavi.backend.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,14 @@ public class RolController {
 
     // Registrar un nuevo usuario
     @PostMapping()
-    public ResponseEntity<User> registerUser(@RequestBody UserDtoIn userDtoIn) {
-        User createdUser = userService.registerUser(userDtoIn);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    public ResponseEntity<Role> registerUser(@RequestBody RolDtoIn rolDtoIn) {
+        
+        Role createdRole = roleService.createRole(rolDtoIn);
+        
+        return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
     }
 
+    /*
     // Obtener un usuario por ID
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
@@ -60,5 +64,7 @@ public class RolController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+*/
 }
 

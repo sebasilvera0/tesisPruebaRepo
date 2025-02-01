@@ -8,10 +8,12 @@ import com.inavi.backend.user.exception.NotFound;
 import com.inavi.backend.user.model.Permission;
 import com.inavi.backend.user.model.Role;
 import com.inavi.backend.user.repository.PermissionRepository;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -32,6 +34,10 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Permission createPermission(Permission permission) {
         return permissionRepository.save(permission);
+    }
+    
+    public Set<Permission> getPermisionByIds(Set<Integer> roleIds) {
+        return new HashSet<>(permissionRepository.findAllById(roleIds));
     }
 
 }

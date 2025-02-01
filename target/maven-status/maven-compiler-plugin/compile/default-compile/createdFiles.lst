@@ -14,7 +14,9 @@ com\inavi\backend\user\service\ValidationService.class
 com\inavi\backend\user\service\UserServiceImpl.class
 com\inavi\backend\user\repository\UserRepository.class
 com\inavi\backend\user\repository\PermissionRepository.class
+com\inavi\backend\user\dto\in\RolDtoIn.class
 com\inavi\backend\user\configuration\SecurityConfig.class
+com\inavi\backend\user\controller\RolController.class
 com\inavi\backend\user\model\ProductiveUnit.class
 com\inavi\backend\user\dto\in\UserUpdateDto.class
 com\inavi\backend\user\service\PermissionService.class

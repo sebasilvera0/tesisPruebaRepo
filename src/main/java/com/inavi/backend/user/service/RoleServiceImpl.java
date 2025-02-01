@@ -4,6 +4,7 @@
  */
 package com.inavi.backend.user.service;
 
+import com.inavi.backend.user.dto.in.RolDtoIn;
 import com.inavi.backend.user.exception.NotFound;
 import com.inavi.backend.user.model.Permission;
 import com.inavi.backend.user.model.Role;
@@ -28,7 +29,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role createRole(Role role) {
+    public Role createRole(RolDtoIn rolDtoIn) {
+        Set<Permission> permissions = permissionService.getPermisionByIds(rolDtoIn.getPermissions());
+        
+        Role role = new Role();
+        role.setName(rolDtoIn.getName());
+        role.setPermissions(permissions);
+        
         return roleRepository.save(role);
     }
 
