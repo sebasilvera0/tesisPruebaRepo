@@ -13,10 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.inavi.backend.user.dto.in.UserDtoIn;
 import com.inavi.backend.user.dto.in.UserUpdateDto;
-@RestController  // Anotación para indicar que esta clase es un controlador REST
-@RequestMapping("/api/users")  // Define el prefijo para las rutas de este controlador
+@RestController  
+@RequestMapping("/api/users") 
 public class UserController {
-
     
     @Autowired
     private UserService userService;
