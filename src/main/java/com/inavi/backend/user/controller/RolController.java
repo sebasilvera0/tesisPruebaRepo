@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.inavi.backend.user.dto.in.UserDtoIn;
 import com.inavi.backend.user.dto.in.UserUpdateDto;
+import com.inavi.backend.user.service.RoleService;
 @RestController  
-@RequestMapping("/api/users") 
-public class UserController {
+@RequestMapping("/api/rol") 
+public class RolController {
     
     @Autowired
-    private UserService userService;
+    private RoleService roleService;
 
     // Registrar un nuevo usuario
     @PostMapping()
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     // Actualizar un usuario
-    @PutMapping()
+    @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody UserUpdateDto userUpdateDto) {
         User updatedUser = userService.updateUser(userUpdateDto);
         if (updatedUser != null) {

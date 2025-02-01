@@ -22,8 +22,6 @@ import lombok.NoArgsConstructor;
 public class UserDtoIn {
     
     
-    private Integer id;
-    
     @NotBlank(message = "Name cannot be blank")
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
