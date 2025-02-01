@@ -19,9 +19,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDtoIn {
+public class UserUpdateDto {
     
-    
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 3, message = "Name must be at least 3 characters long")
     private Integer id;
     
     @NotBlank(message = "Name cannot be blank")
@@ -39,12 +40,9 @@ public class UserDtoIn {
     @NotBlank(message = "Email cannot be blank")
     private String email;
 
-    @NotBlank(message = "Password cannot be blank")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
     private Set<Integer> vineyardAccess;
-    
     
     private Integer productiveUnit;
     

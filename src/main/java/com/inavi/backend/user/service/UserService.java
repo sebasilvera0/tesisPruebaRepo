@@ -9,16 +9,18 @@ package com.inavi.backend.user.service;
  * @author sebas
  */
 
+import com.inavi.backend.user.dto.in.UserDtoIn;
+import com.inavi.backend.user.dto.in.UserUpdateDto;
 import com.inavi.backend.user.model.User;
 import java.util.List;
 
 public interface UserService {
     
-    User registerUser(DtoUser user);
+    User registerUser(UserDtoIn user);
     
     User getUserById(Integer userId);
     
     User login(String email, String rawPassword);
 
-    User updateUser(User user);
+    User updateUser(UserUpdateDto user);
 }

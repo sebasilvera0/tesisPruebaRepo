@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.inavi.backend.user.dto.in.UserDtoIn;
+import com.inavi.backend.user.dto.in.UserUpdateDto;
 @RestController  // Anotación para indicar que esta clase es un controlador REST
 @RequestMapping("/api/users")  // Define el prefijo para las rutas de este controlador
 public class UserController {
@@ -22,8 +23,8 @@ public class UserController {
 
     // Registrar un nuevo usuario
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody UserDtoIn user) {
-        User createdUser = userService.registerUser(user);
+    public ResponseEntity<User> registerUser(@RequestBody UserDtoIn userDtoIn) {
+        User createdUser = userService.registerUser(userDtoIn);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
@@ -51,8 +52,8 @@ public class UserController {
 
     // Actualizar un usuario
     @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User updatedUser = userService.updateUser(user);
+    public ResponseEntity<User> updateUser(@RequestBody UserUpdateDto userUpdateDto) {
+        User updatedUser = userService.updateUser(userUpdateDto);
         if (updatedUser != null) {
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } else {
