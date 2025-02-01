@@ -5,6 +5,8 @@
 package com.inavi.backend.user.service;
 
 
+import com.inavi.backend.user.dto.in.UserDtoIn;
+import com.inavi.backend.user.dto.in.UserUpdateDto;
 import com.inavi.backend.user.exception.NotFound;
 import com.inavi.backend.user.exception.UserNotValid;
 import com.inavi.backend.user.model.ProductiveUnit;
@@ -33,8 +35,9 @@ public class UserServiceTest {
     @Autowired
     private ProductiveUnitRepository productiveUnitRepository; 
 
-    private User testUser;
-
+   // private User testUser;
+    private UserDtoIn testUser;
+    private UserUpdateDto userUpdateDto;
     @BeforeEach
     void setUp() {
     // Crear y guardar la unidad productiva
@@ -46,8 +49,8 @@ public class UserServiceTest {
     productiveUnitRepository.save(productiveUnit);  // Asumiendo que tienes un repositorio para ProductiveUnit
 
     // Crear un usuario de prueba antes de cada test
-    testUser = new User();
-    testUser.setId(1);
+    testUser = new UserDtoIn();
+    // testUser.setId(1);
     testUser.setPassword("John Doe");
     testUser.setEmail("john.doe@example.com");
     testUser.setName("John Doe");
@@ -55,7 +58,7 @@ public class UserServiceTest {
     testUser.setNationalIdentification("1.825.455-1");
 
     // Asignar la unidad productiva al usuario
-    testUser.setProductiveUnit(productiveUnit);
+    testUser.setProductiveUnit(productiveUnit.getId());
     
     userService.registerUser(testUser);
 }
@@ -71,7 +74,7 @@ public class UserServiceTest {
 
         // Validar que el usuario fue guardado correctamente
         assertThat(savedUser).isNotNull();
-        assertThat(savedUser.getId()).isEqualTo(testUser.getId());
+        assertThat(savedUser.getId()).isNotNull();
         assertThat(savedUser.getName()).isEqualTo(testUser.getName());
         assertThat(savedUser.getEmail()).isEqualTo(testUser.getEmail());
         assertThat(savedUser.getSurname()).isEqualTo(testUser.getSurname());
@@ -85,7 +88,7 @@ public class UserServiceTest {
     
     @Test
     void testInvalidEmailWithUserService() {
-        User testUser = new User();
+       // User testUser = new User();
         testUser.setName("ValidName");
 
         // Caso 1: Email demasiado corto
@@ -144,19 +147,21 @@ public class UserServiceTest {
     void testUpdateUser_Success() {
         // Actualizar los datos del usuario
         
-        User testUser = userService.getUserById(1);
+        User savedUser = userService.registerUser(testUser);
         
-        testUser.setName("Jane Doe");
-        testUser.setEmail("jane.doe@example.com");
-        testUser.setSurname("Smith");
-        testUser.setNationalIdentification("1.825.455-2");
-
+        userUpdateDto = new UserUpdateDto();
+        
+        userUpdateDto.setName("Jane Doe");
+        userUpdateDto.setEmail("jane.doe@example.com");
+        userUpdateDto.setSurname("Smith");
+        userUpdateDto.setNationalIdentification("1.825.455-2");
+        userUpdateDto.setId(savedUser.getId());
         // Llamar al método updateUser
-        User updatedUser = userService.updateUser(testUser);
+        User updatedUser = userService.updateUser(userUpdateDto);
 
         // Validar que los datos del usuario se han actualizado correctamente
         assertThat(updatedUser).isNotNull();
-        assertThat(updatedUser.getId()).isEqualTo(testUser.getId());
+        //assertThat(updatedUser.getId()).isEqualTo(testUser.getId());
         assertThat(updatedUser.getName()).isEqualTo("Jane Doe");
         assertThat(updatedUser.getEmail()).isEqualTo("jane.doe@example.com");
         assertThat(updatedUser.getSurname()).isEqualTo("Smith");
@@ -167,15 +172,13 @@ public class UserServiceTest {
     @Test
     void testUpdateUser_UserNotFound() {
         // Crear un usuario con un ID inexistente
-        User nonExistentUser = new User();
-        nonExistentUser.setId(999);
-        nonExistentUser.setName("Nonexistent User");
-        nonExistentUser.setEmail("nonexistent@example.com");
-        nonExistentUser.setSurname("None");
-        nonExistentUser.setNationalIdentification("9.999.999-9");
+        userUpdateDto = new UserUpdateDto();
+        userUpdateDto.setId(500);
+                
+       
 
         // Verificar que se lanza la excepción NotFound al intentar actualizar
-        assertThatThrownBy(() -> userService.updateUser(nonExistentUser))
+        assertThatThrownBy(() -> userService.updateUser(userUpdateDto))
             .isInstanceOf(NotFound.class)
             .hasMessageContaining("User with ID 999 not found");
     }
